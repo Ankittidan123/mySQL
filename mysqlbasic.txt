@@ -1,0 +1,177 @@
+#operator
+use sakila;
+
+select * from actor;
+select actor_id, first_name from actor
+where actor_id=2 or actor_id=4;
+select * from actor;
+
+-- i need to get first ed ya nick and actor id 3 ya 3 se jyda
+select * from actor where (first_name="ED" or first_name="NICK") and actor_id>=3;
+
+#function string=>output
+# single row function 
+#string function
+
+select first_name,lower(first_name)from actor;
+
+-- dual table (dummy table)
+select upper("ac") from dual;
+
+select first_name ,last_name,
+concat('mr ', first_name, '-', last_name)
+ from actor;
+ 
+select first_name ,last_name,
+concat_ws('-','mr', first_name, '-', last_name)
+ from actor;
+ 
+ select *from actor where
+concat(first_name, ' ', last_name)="ED CHASE";
+
+
+select * from actor where first_name like "J%";
+
+select * from actor where first_name like "J%";
+
+
+-- substring
+
+select first_name, substr(first_name,3) from actor;
+
+select first_name, substr(first_name,2,3) from actor;
+
+
+select first_name, substr(first_name,-3) from actor;
+
+
+select first_name, substr(first_name,-2,2) from actor;
+
+-- instr
+
+select first_name,instr(first_name,"E") from actor;
+
+select first_name,locate("E",first_name,3) from actor;
+
+-- length 
+
+select length("abge") from dual;
+select char_length("abge") from dual;
+
+
+-- trim function
+select '   abc     ' from dual;
+
+select trim('   abc     ') from dual;
+
+select trim(trailing 'x' from '  abcxxxxxxxxx') from dual;
+
+
+select trim(leading 'a' from 'aaabcxxxxxxxxx') from dual;
+
+
+select trim(both 'x' from 'xxx asdf abcxxxxxxxxx') from dual;
+
+
+-- lpad,rpad
+
+select rpad(947343853,15,'$') from dual;
+
+
+
+
+
+-- date time function
+-- year(),  months ,quator,weekofyear
+
+select curdate() from dual;
+select current_timestamp() from dual;
+
+select now() from dual;
+
+select adddate( now(),15 ) from dual;
+
+
+select adddate( now(),interval 15 month ) from dual;
+
+select dayname( now() ) from dual;
+
+select date_format( now(), "%Y") from dual;
+-- Y for yaer
+
+select date_format( now(), "%M") from dual;
+-- M for months name and if m is small then month number
+
+select date_format( now(), "%M--%Y") from dual;
+
+
+--  numberical function
+-- round, truncate,mod
+
+select round(10.6) from dual;
+-- round means approx value 
+
+
+select round(10.6545,1) from dual;
+-- here 1 is for one digit round after decimal
+
+
+select truncate(10.498) from dual;
+
+
+# conditional true ,false
+-- if
+use sakila;
+
+select * from actor;
+
+
+select if(true,10,20) from dual;
+
+select actor_id, first_name,
+if( actor_id=2, actor_id+10, actor_id) from actor;
+
+select actor_id, first_name,
+if( actor_id=2, actor_id+10,
+if(actor_id=4,actor_id+20, actor_id)) from actor;
+
+-- case statement
+/*
+select col, col expression
+             when condition then what_type_work
+             end
+*/
+
+select actor_id, first_name,
+case actor_id
+     when 2 then actor_id+10
+     when 3 then actor_id+20
+     else actor_id
+     end "newcol" 
+     from actor;
+     
+     select actor_id, first_name,
+case 
+     when actor_id=2 then actor_id+10
+     when actor_id=3 then actor_id+20
+     else actor_id
+     end "newcol" 
+     from actor;
+   
+   
+   
+   -- actor_id>5 then add 10 agr 15 se jyda 25
+
+
+select actor_id, first_name,
+case 
+     when actor_id>30 then actor_id+50
+     when actor_id>=15 and actor_id>30  then actor_id+25
+     when actor_id>=30 and actor_idthen actor_id+50
+     else actor_id+5
+     end "newcol" 
+     from actor;
+     
+     
+     -- what is groupby, distinct, dono me difference
+     -- difference where clause and having clause
